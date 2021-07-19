@@ -1,271 +1,100 @@
 <template>
-    <main>
-        <section class="carousel">
-            <ul class="carousel-items">
-                <li class="carousel-item">
-                    <div class="card">
-                        <h2 class="card-title">forum title</h2>
-                        <img src="https://placeimg.com/572/322/animals" />
-                        <div class="card-content">
-                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum itaque similique a quis perspiciatis, unde laudantium nam, vero asperiores distinctio exercitationem ab facere neque voluptatum aliquam assumenda cumque dignissimos eveniet?</p>
-                            <a href="#" class="button">Read more</a>
-                        </div>
-                    </div>
-                </li>
-                <li class="carousel-item">
-                    <div class="card">
-                        <h2 class="card-title">forum title</h2>
-                        <img src="https://placeimg.com/572/322/animals" />
-                        <div class="card-content">
-                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum itaque similique a quis perspiciatis, unde laudantium nam, vero asperiores distinctio exercitationem ab facere neque voluptatum aliquam assumenda cumque dignissimos eveniet?</p>
-                            <a href="#" class="button">Read more</a>
-                        </div>
-                    </div>
-                </li>
-                <li class="carousel-item">
-                    <div class="card">
-                        <h2 class="card-title">forum title</h2>
-                        <img src="https://placeimg.com/572/322/animals" />
-                        <div class="card-content">
-                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum itaque similique a quis perspiciatis, unde laudantium nam, vero asperiores distinctio exercitationem ab facere neque voluptatum aliquam assumenda cumque dignissimos eveniet?</p>
-                            <a href="#" class="button">Read more</a>
-                        </div>
-                    </div>
-                </li>
-                <li class="carousel-item">
-                    <div class="card">
-                        <h2 class="card-title">forum title</h2>
-                        <img src="https://placeimg.com/572/322/animals" />
-                        <div class="card-content">
-                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum itaque similique a quis perspiciatis, unde laudantium nam, vero asperiores distinctio exercitationem ab facere neque voluptatum aliquam assumenda cumque dignissimos eveniet?</p>
-                            <a href="#" class="button">Read more</a>
-                        </div>
-                    </div>
-                </li>
-                <li class="carousel-item">
-                    <div class="card">
-                        <h2 class="card-title">forum title</h2>
-                        <img src="https://placeimg.com/572/322/animals" />
-                        <div class="card-content">
-                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum itaque similique a quis perspiciatis, unde laudantium nam, vero asperiores distinctio exercitationem ab facere neque voluptatum aliquam assumenda cumque dignissimos eveniet?</p>
-                            <a href="#" class="button">Read more</a>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </section>
-    </main>
+  <main>
+    <section class="posts">
+        <li class="section_post" v-for="post in posts" :key="post.id">
+          <div class="card_post">
+            <h2 class="card_title">{{ post.title }}</h2>
+            <div class="card_content">
+              <p>{{ post.text }}</p>
+              <router-link :to="{name:'OnePost', params:{postId:post.id}}" ><a class="comments_button">Commentaires</a></router-link>
+            </div>
+          </div>
+        </li>
+
+    </section>
+  </main>
 </template>
 
 <script>
+import axios from "axios";
 export default {
-    name: 'Slider'
-}
+  name: "Slider",
+  data() {
+    return {
+      posts: [],
+      title: "",
+      text: "",
+    };
+  },
+  mounted() {
+    const storageInfo = JSON.parse(localStorage.getItem("lucasp7groupomania"));
+    axios
+      .get("http://localhost:3000/api/post/findAll", {
+        headers: {
+          Authorization: `Bearer ${storageInfo.token}`,
+        },
+      })
+      .then((posts) => {
+        console.log(posts);
+        this.posts = posts.data;
+        this.$router.push("/");
+      });
+  },
+  methods: {},
+};
 </script>
 
 <style scoped>
-    * {
-    box-sizing: border-box;
+li{
+  list-style: none;
 }
 
-body,
-button,
-input,
-select,
-optgroup,
-textarea {
-    color: #3d4852;
-    font-family: 'Muli', sans-serif;
-    font-size: 1rem;
-    line-height: 1.6;
+a{
+  text-decoration: none;
 }
 
-h1 {
-    font-size: 2rem;
-    margin: 2rem auto 1rem;
-    line-height: 1;
-}
-
-h2 {
-    font-size: 1.25rem;
-    margin-top: 0;
-}
-
-a {
-    color: inherit;
-    transition: 0.25s all ease-in-out;
-}
-
-a:visited {
-    color: #3d4852;
-}
-
-a:hover,
-a:focus,
-a:active {
-    background-color: #3d4852;
-    color: white;
-}
-
-a:focus {
-    outline: thin solid #3d4852;
-}
-
-a:hover,
-a:active {
-    outline: 0;
-}
-
-a.button {
-    align-items: center;
-    background-color: #3d4852;
-    border: 1px solid #3d4852;
-    border-radius: 4px;
-    color: white;
-    cursor: pointer;
-    display: inline-flex;
-    padding: 0.25rem 0.75rem;
-    text-decoration: none;
-    transition: all 0.25s ease-in-out;
-}
-
-a.button:hover,
-a.button:focus {
-    background-color: #58636F;
-    box-shadow: 0 0 2px 2px #bac6d3;
-}
-
-a.button:focus {
-    outline: 1px solid #3d4852;
-}
-
-a.button:visited {
-    color: #fff;
-}
-
-ul {
-    margin: 0 0 1.5rem;
-    padding: 0;
-}
-
-li {
-    display: inline-block;
-}
-
-svg {
-    fill: currentColor;
-    width: 1.5rem;
-    height: 1.5rem;
-}
-
-img {
-    height: auto;
-    margin-bottom: .5rem;
-    max-width: calc(100% + 2rem);
-    position: relative;
-    left: -1rem;
-    right: -1rem;
-}
-
-p {
-    margin: 0 0 .5rem;
-}
-
-main {
-    padding: 1rem 2rem;
-    margin: auto;
-}
-
-header {
-    padding: 1rem 2rem;
-    text-align: center;
-}
-
-.card {
-    border: 1px solid #bac6d3;
-    border-radius: 8px;
-    padding: 1rem;
-}
-
-/********************************
-* Carousel styles
-*********************************/
-.carousel-items {
-    display: flex;
-    overflow-x: scroll;
-    padding: 1rem 0;
-    scroll-snap-type: x mandatory;
-}
-
-.carousel-item {
-    flex: 1 0 250px;
-    margin-left: 1rem;
-    scroll-snap-align: start;
-}
-
-::-webkit-scrollbar-track {
-    background-color: #F5F5F5;
-}
-
-::-webkit-scrollbar {
-    height: 6px;
-    background-color: #F5F5F5;
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: #3d4852;
-    border-radius: 3px;
+.posts{
+  color: white;
+  border-radius: 20px;
+  border: 2px white solid;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 
-/********************************
-* Breakpoints
-*********************************/
-@media screen and (min-width: 576px) {
-    .carousel-item {
-        flex-basis: 300px;
-    }
+
+.card_post{
+  margin-left: 20px;
+  margin-right: 20px;
+  border: 2px solid white;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  height: 150px;
 }
 
-@media screen and (min-width: 992px) {
-
-    body,
-    button,
-    input,
-    select,
-    optgroup,
-    textarea {
-        font-size: 1.125rem;
-    }
-
-    h1 {
-        font-size: 2.75rem;
-    }
-
-    .carousel-item {
-        flex-basis: 325px;
-    }
+.comments_button {
+  font-weight: 800;
+  font-size: 15px;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 35px;
+  border: none;
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
 }
 
-@media screen and (min-width: 1280px) {
-    h1 {
-        font-size: 4rem;
-    }
-
-    .carousel-item {
-        flex-basis: 450px;
-    }
+.comments_button:hover{
+  color: black;
+  background-color: white;
+  mix-blend-mode: screen;
+  cursor: pointer;
+  transition: all ease .5s;
 }
 
-@media screen and (min-width: 1600px) {
 
-    body,
-    button,
-    input,
-    select,
-    optgroup,
-    textarea {
-        font-size: 1.25rem;
-    }
-}
 </style>

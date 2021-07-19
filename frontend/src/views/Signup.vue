@@ -1,26 +1,27 @@
 <template>
+  <i class="fas fa-arrow-left arrow_post" onclick="window.location.href='/';"></i>
   <div class="body">
-    <div @submit.prevent="signup" class="login_cart" >
+    <div @submit.prevent="signup" class="login_cart">
       <a class="login_title">Inscrivez-vous</a>
       <div class="input_cart">
         <div data-validate="Username is required" class="setting_input">
-          <a class="title_input">first name</a>
+          <a class="title_input">Prénom</a>
           <input
             class="input"
             v-model="first_name"
             type="text"
             name="first_name"
-            placeholder="Inscrivez votre first name"
+            placeholder="Inscrivez votre prénom"
           />
         </div>
         <div data-validate="Username is required" class="setting_input">
-          <a class="title_input">last name</a>
+          <a class="title_input">Nom de famille</a>
           <input
             class="input"
             v-model="last_name"
             type="text"
             name="last_name"
-            placeholder="Inscrivez votre last name"
+            placeholder="Inscrivez votre nom de famille"
           />
         </div>
         <div data-validate="Username is required" class="setting_input">
@@ -50,7 +51,7 @@
           <input
             class="input"
             v-model="password"
-            type="text"
+            type="password"
             name="password"
             placeholder="Inscrivez votre mot de passe"
           />
@@ -61,7 +62,7 @@
         <button class="login_button" v-on:click="signup">S'inscrire</button>
       </div>
 
-      <router-link to="/" class="link_signup">Vous avez un compte</router-link>
+      <router-link to="/login" class="link_signup">Vous avez un compte</router-link>
     </div>
   </div>
 </template>
@@ -73,49 +74,58 @@ export default {
   name: "Signup",
   data() {
     return {
-        email: "",
-        password: "",
-        first_name: "",
-        last_name: "",
-        username: "",
-    }
+      email: "",
+      password: "",
+      first_name: "",
+      last_name: "",
+      username: "",
+    };
   },
   methods: {
     signup() {
-      this.$axios.post('',{
-        username: this.username,
-        first_name: this.first_name,
-        last_name: this.last_name,
-        email: this.email,
-        password: this.password
-      }).then(response => {
-        console.log(response);
-      }).catch(error => {
-        console.log(error);
-      })
-    }
-  }
-}
-      // axios
-      //   .post("http://localhost:3000/api/auth/signup", this.user)
-      //   .then(function (response) {
-      //     console.log(response);
-      //   })
-      //   .catch(function (error) {
-      //     console.log(error);
-      //   });
-   
+      axios
+        .post("http://localhost:3000/api/auth/signup", {
+          email: this.email,
+          password: this.password,
+          first_name: this.first_name,
+          last_name: this.last_name,
+          username: this.username,
+        })
+        .then(()=>{
+          this.$router.push("/login")
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+  },
+};
 </script>
 
 <style scoped>
-/* fonts */
-
-@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
 /* style */
 
-body {
-  background-color: #f0f0f0;
+.arrow_post {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 20px;
+  width: 40px;
+  color: white;
+  border: 2px solid white;
+  border-radius: 30px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.arrow_post:hover{
+  color: black;
+  background-color: white;
+  mix-blend-mode: screen;
+  display: block;
+  cursor: pointer;
+  transition: all ease .5s;
 }
 
 .body {
@@ -126,7 +136,7 @@ body {
 /*login_cart */
 
 .login_cart {
-  background-color: white;
+  border: 2px solid white;
   border-radius: 20px;
   padding-top: 40px;
   padding-bottom: 40px;
@@ -136,8 +146,9 @@ body {
 
 .login_title {
   font-weight: 900;
-  font-size: 20px;
+  font-size: 25px;
   width: 100%;
+  color: white;
 }
 
 @media screen and (max-width: 375px) {
@@ -160,15 +171,22 @@ body {
 }
 .title_input {
   font-size: 20px;
+  font-weight: 800;
   padding-top: 10px;
+  color: white;
 }
 
 .input {
-  width: 200px;
+  width: 250px;
   height: 20px;
   border-radius: 10px;
-  border: 0.5px solid #c0c0c0;
+  border: 2px solid white;
+  background-color: transparent;
   margin: auto;
+}
+
+.input::placeholder{
+  color: white;
 }
 
 /* button */
@@ -178,22 +196,31 @@ body {
 }
 
 .login_button {
-  font-family: "Poppins";
   font-weight: 800;
+  font-size: 20px;
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 50px;
   padding-right: 50px;
-  border-radius: 20px;
+  border-radius: 35px;
   border: none;
-  background-color: #f0f0f0;
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+}
+
+.login_button:hover{
+  color: black;
+  background-color: white;
+  mix-blend-mode: screen;
   cursor: pointer;
+  transition: all ease .5s;
 }
 
 /* sign up */
 
 .link_signup {
-  color: black;
+  color: white;
   text-decoration: none;
 }
 </style>

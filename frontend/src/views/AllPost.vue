@@ -1,6 +1,5 @@
 <template>
     <div>
-        <!-- <Navbar/> -->
         <div class="button_forum_disconnection">
 				<button class="disconnection_forum_button" onclick="window.location.href='/';">
 					Déconnexion
@@ -33,13 +32,9 @@
 </template>
 
 <script>
-// import NavBar from '@/components/NavBar.vue'
 
 export default {
   name: 'AllPost',
-//   components:{
-//       NavBar
-//   }
 }
 </script>
 

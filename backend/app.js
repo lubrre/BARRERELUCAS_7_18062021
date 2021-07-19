@@ -19,6 +19,9 @@ const helmet = require('helmet');
 
 // déclaration des routes ( user)
 const userRoutes = require('./routes/user');
+const postRoutes = require('./routes/post');
+const commentRoutes = require('./routes/comment');
+const reportRoutes = require('./routes/report');
 
 
 // création d'un application express
@@ -41,6 +44,8 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 
 // routes dédiées (user)
 app.use('/api/auth', userRoutes);
+app.use('/api/post', postRoutes);
+app.use('/api/comment', commentRoutes);
 
 
 // export de l'app express pour y accéder depuis server.js

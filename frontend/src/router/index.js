@@ -2,8 +2,9 @@ import { createWebHistory, createRouter } from "vue-router";
 import Login from "@/views/Login.vue";
 import Signup from "@/views/Signup.vue";
 import Profile from "@/views/Profile.vue";
-import AllPost from "@/views/AllPost.vue";
+import OnePost from "@/views/OnePost.vue";
 import AddPost from "@/views/AddPost.vue";
+import Administrateur from "@/views/Administrateur.vue";
 import Home from "@/views/Home.vue";
 
 const routes = [
@@ -28,14 +29,20 @@ const routes = [
     component: Profile,
   },
   {
-    path: '/allpost',
-    name: 'AllPost',
-    component: AllPost,
+    path: '/onepost',
+    name: 'OnePost',
+    component: OnePost,
+    props: true,
   },
   {
     path: '/addpost',
     name: 'AddPost',
     component: AddPost,
+  },
+  {
+    path: '/administrateur',
+    name: 'Administrateur',
+    component: Administrateur,
   },
   
 ];

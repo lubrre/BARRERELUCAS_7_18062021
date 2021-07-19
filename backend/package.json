@@ -4,7 +4,6 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "watch": "nodemon ./server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -26,6 +25,7 @@
     "nodemon": "^2.0.7",
     "obfuscator-email": "^1.0.3",
     "password-validator": "^5.1.1",
+    "path": "^0.12.7",
     "sequelize": "^6.6.2",
     "uuid": "^8.3.2"
   }

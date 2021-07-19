@@ -34,7 +34,7 @@ export default {
 
 li a{
     text-decoration: none;
-    color: black;
+    color: white;
     cursor: pointer;
 }
 </style>

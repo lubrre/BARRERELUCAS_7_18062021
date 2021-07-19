@@ -1,5 +1,7 @@
 const dbConfig = require("../config/db.config.js");
 
+const fs = require('fs');
+const path = require('path');
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
@@ -13,25 +15,25 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     idle: dbConfig.pool.idle
   }
 });
-
 const db = {};
+
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.users = require("./user.model.js")(sequelize, Sequelize);
-db.posts = require("./post.model.js")(sequelize, Sequelize);
-db.comments = require("./comment.model.js")(sequelize, Sequelize);
+db.users = require("./user.js")(sequelize, Sequelize);
+db.posts = require("./post.js")(sequelize, Sequelize);
+db.comments = require("./comment.js")(sequelize, Sequelize);
 
 
-db.users.hasOne(db.posts, {
+db.users.hasMany(db.posts, {
   onDelete: 'CASCADE',
   onUpdate: 'CASCADE'
 });
 db.posts.belongsTo(db.users);
 
 
-db.users.hasOne(db.comments, {
+db.users.hasMany(db.comments, {
   onDelete: 'CASCADE',
   onUpdate: 'CASCADE'
 });

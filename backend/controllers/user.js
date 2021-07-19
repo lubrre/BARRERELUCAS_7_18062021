@@ -1,8 +1,7 @@
 const bcrypt = require("bcrypt");
-const db = require("../models/index");
+const db = require("../models");
 const jwt = require('jsonwebtoken');
-const User = require('../models/user');
-
+const User = db.users;
 
 exports.signup = async (req, res, next) => {
   console.log(req.body)
@@ -21,10 +20,16 @@ exports.signup = async (req, res, next) => {
 
       User.create(user)
         .then(user => res.status(201).json(user))
-        .catch(error => res.status(501).json({ error }));
+        .catch(error =>{
+          console.log(error)
+          res.status(501).json({ error })
+        });
     })
 
-    .catch(error => res.status(500).json({ error }));
+    .catch(error =>{
+      console.log(error)
+      res.status(500).json({ error })
+    });
 
 }
 exports.login = (req, res, next) => {
@@ -52,8 +57,9 @@ exports.login = (req, res, next) => {
           res.status(200).json({
             userId: user.id,
             token: jwt.sign(
-              { userId: user.id }, 'RANDOM_TOKEN_SECRET',
+              { userId: user.id }, process.env.JWT_SECRET,
               { expiresIn: '24h' }),
+            isAdmin: user.isAdmin,
           });
 
         });
@@ -94,6 +100,4 @@ exports.delete = (req, res) => {
   })
     .then(() => res.status(200).json({ message: 'Utilisateur supprimé' }))
     .catch(error => res.status(509).json({ error }));
-
-
 };
