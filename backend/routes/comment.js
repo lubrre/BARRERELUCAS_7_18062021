@@ -12,7 +12,7 @@ router.get('/signal/:postId', auth, commentsCtrl.signalComment);
 //admin
 router.put('/modifySignaledComment/:id', auth, commentsCtrl.modifySignaledComment);
 router.get('/signal/:commentId', auth, commentsCtrl.signalComment);
-router.get("/signaledComment", auth, commentsCtrl.getAllReports);
+router.get("/signalComment", auth, commentsCtrl.getAllReportedComments);
 router.delete("/deleteSignaledComment/:id", auth, commentsCtrl.deleteComment);
 
 module.exports = router;

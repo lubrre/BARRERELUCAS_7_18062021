@@ -45,7 +45,6 @@ export default {
       signaledPosts: [],
       signaledComments: [],
     };
-    
   },
   mounted() {
     const storageInfo = JSON.parse(localStorage.getItem("lucasp7groupomania"));
@@ -62,7 +61,7 @@ export default {
       });
     
     axios
-      .get("http://localhost:3000/api/comment/signaledComment", {
+      .get("http://localhost:3000/api/comment/signalComment", {
         headers: {
           Authorization: `Bearer ${storageInfo.token}`,
         },

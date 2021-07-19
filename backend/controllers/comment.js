@@ -65,7 +65,7 @@ exports.signalComment = (req, res, next) => {
 
 /// get all report
 
-exports.getAllReports = (req, res, next) => {
+exports.getAllReportedComments = (req, res, next) => {
   Comment.findAll({
     order: [['createdAt', 'DESC']],
     where:{
@@ -85,6 +85,8 @@ exports.getAllReports = (req, res, next) => {
       });
     });
 };
+
+
 
 // delete comment
 
