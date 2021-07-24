@@ -1,75 +1,90 @@
 <template>
-  <i class="fas fa-arrow-left arrow_post" onclick="window.location.href='/';"></i>
-  <div class="body">
-    <div class="login_cart">
-      <a class="login_title">Connecter vous à votre compte</a>
-      <div class="input_cart">
-        <div data-validate="Email is required" class="setting_input">
-          <a class="title_input">Email</a>
-          <input
-            class="input"
-            v-model="email"
-            type="text"
-            name="Email"
-            placeholder="Inscrivez votre email"
-          />
+  <Modal
+    v-if="modalMessage"
+    :modalMessage="modalMessage"
+    v-on:close-me="closeModal"
+  />
+  <div>
+    <div class="body">
+      <div class="login_cart">
+        <a class="login_title">Connecter vous à votre compte</a>
+        <div class="input_cart">
+          <div data-validate="Email is required" class="setting_input">
+            <a class="title_input">Email</a>
+            <input
+              class="input"
+              v-model="email"
+              type="text"
+              name="Email"
+              placeholder="Inscrivez votre email"
+            />
+          </div>
+
+          <div data-validate="Password is required" class="setting_input">
+            <a class="title_input">Mot de passe</a>
+            <input
+              class="input"
+              type="password"
+              v-model="password"
+              name="password"
+              placeholder="Inscrivez votre mot de passe"
+            />
+          </div>
         </div>
 
-        <div data-validate="Password is required" class="setting_input">
-          <a class="title_input">Mot de passe</a>
-          <input
-            class="input"
-            type="password"
-            v-model="password"
-            name="password"
-            placeholder="Inscrivez votre mot de passe"
-          />
+        <div class="button">
+          <button class="login_button" v-on:click="login">S'identifier</button>
         </div>
-      </div>
 
-      <div class="button">
-        <button class="login_button" v-on:click="login">
-          S'identifier
-        </button>
+        <router-link to="/inscription" class="link_signup"
+          >Pas encore de compte</router-link
+        >
       </div>
-
-      <router-link to="/inscription" class="link_signup"
-        >Pas encore de compte</router-link
-      >
     </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import Modal from "../components/Modal.vue";
 
 export default {
   name: "Login",
+  components:{
+    Modal,
+  },
   data() {
     return {
       email: "",
       password: "",
-    }
+      modalMessage: "",
+    };
   },
 
-  methods:{
-      login(){
-          axios.post('http://localhost:3000/api/auth/login',{
-              email:this.email,
-              password:this.password,
-          })
-          .then((res)=>{
-            console.log(res)
-            localStorage.setItem("lucasp7groupomania", JSON.stringify(res.data))
-            this.$router.push("/")
-          })
-      }
-  }
+  methods: {
+    login() {
+      axios
+        .post("http://localhost:3000/api/auth/login", {
+          email: this.email,
+          password: this.password,
+        })
+        .then((res) => {
+          console.log(res);
+          localStorage.setItem("lucasp7groupomania", JSON.stringify(res.data));
+          this.$router.push("/home");
+        })
+        .catch(error => {
+          this.modalMessage = error.response.data.message;
+        });
+    },
+    closeModal() {
+      this.modalMessage = "";
+    }
+  },
 };
 </script>
 
 <style scoped>
-
 /* style */
 
 .arrow_post {
@@ -85,13 +100,13 @@ export default {
   cursor: pointer;
 }
 
-.arrow_post:hover{
+.arrow_post:hover {
   color: black;
   background-color: white;
   mix-blend-mode: screen;
   display: block;
   cursor: pointer;
-  transition: all ease .5s;
+  transition: all ease 0.5s;
 }
 
 .body {
@@ -139,7 +154,6 @@ export default {
   font-weight: 800;
   padding-top: 10px;
   color: white;
-  
 }
 
 .input {
@@ -149,10 +163,9 @@ export default {
   border: 2px solid white;
   background-color: transparent;
   margin: auto;
-
 }
 
-.input::placeholder{
+.input::placeholder {
   color: white;
 }
 
@@ -160,7 +173,6 @@ export default {
 
 .button {
   padding: 20px;
-  
 }
 
 .login_button {
@@ -177,12 +189,12 @@ export default {
   border: 2px solid white;
 }
 
-.login_button:hover{
+.login_button:hover {
   color: black;
   background-color: white;
   mix-blend-mode: screen;
   cursor: pointer;
-  transition: all ease .5s;
+  transition: all ease 0.5s;
 }
 
 /* sign up */

@@ -1,22 +1,26 @@
 <template>
   <div class="header">
-    <div class="logo" onclick="window.location.href='/';"></div>
+    <div class="logo" onclick="window.location.href='/home';"></div>
     <nav class="nav">
       <ul class="nav_links">
         <router-link to="/AddPost" class="nav_text"
           >Ajouter un post</router-link
         >
         <router-link to="/Profile" class="nav_text">Profil</router-link>
+        
         <router-link v-if="isAdmin" to="/Administrateur" class="nav_text"
           >Administrateur</router-link
         >
       </ul>
     </nav>
-    <a class="cta" href="#">
-      <button class="login_button" onclick="window.location.href='/Login';">
-        S'identifier
-      </button>
-    </a>
+
+    <button v-if="isLoggedIn" class="cta log-btn" @click="logout"
+          >Se déconnecter</button>
+    <router-link v-else to="/" class="cta log-btn"
+          >S'identifier</router-link>
+
+    
+    
   </div>
 </template>
 
@@ -26,15 +30,24 @@ export default {
   data() {
     return {
       isAdmin: false,
+      isLoggedIn: false
     };
   },
   mounted() {
     const storageInfo = JSON.parse(localStorage.getItem("lucasp7groupomania"));
-    console.log("storageinfo navbar", storageInfo);
-    if (storageInfo.isAdmin) {
+    // console.log("storageinfo navbar", storageInfo);
+    this.isLoggedIn = storageInfo ? true : false;
+    if (storageInfo && storageInfo.isAdmin) {
       this.isAdmin = true;
     }
   },
+
+  methods: {
+    logout() {
+      localStorage.removeItem("lucasp7groupomania");
+      this.$router.push("/");
+    }
+  }
 };
 </script>
 
@@ -101,6 +114,14 @@ button {
   mix-blend-mode: screen;
 }
 
+.log-btn {
+  background-color: transparent;
+  border: 2px solid;
+  border-radius: 17px;
+  height: 34px;
+  width: 160px;
+}
+
 @media screen and (max-width: 1024px) {
   .nav_links {
     width: 600px;
@@ -123,7 +144,7 @@ button {
   }
 }
 
-@media screen and (max-width: 375px){
+@media screen and (max-width: 425px){
   .header{
     justify-content: center;
     flex-direction: column;
@@ -132,8 +153,11 @@ button {
     width: 375px;
   }
   .nav_links{
-    width: 375px;
+    width: 340px;
     flex-direction: column;
+  }
+  .nav_text{
+    margin-bottom: 10px;
   }
   
 }

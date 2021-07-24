@@ -1,10 +1,11 @@
 <template>
   <div class="body">
-    <i class="fas fa-arrow-left arrow_post" onclick="window.location.href='/';"></i>
+    <router-link to="/home" class="nav_text">
+      <i class="fas fa-arrow-left arrow_post"></i>
+    </router-link>
+
     <form class="profil_cart" v-on:submit.prevent="createPost">
-
       <p class="title_addpost">Ajouter un post</p>
-
 
       <input
         class="addpost_title"
@@ -33,9 +34,7 @@
       </label> -->
 
       <div class="button">
-        <button class="post_button">
-          Publier
-        </button>
+        <button class="post_button">Publier</button>
       </div>
     </form>
   </div>
@@ -45,53 +44,49 @@
 import axios from "axios";
 
 export default {
-    name: "sendPost",
-    data(){
-        return {
-            title: "",
-            text: "",
-            // imageUrl: "",
-        }
-    },
-  
-    
-    methods: {
-      handleFileUpload(){
-        this.image = this.$refs.image.files[0];
-      },
-      createPost() {
-      const storageInfo = JSON.parse(localStorage.getItem("lucasp7groupomania"));
-      const formData = new FormData();
-        if(this.image !== null){
-          // formData.append("image", this.image);
-          formData.append("title", this.title);
-          formData.append("text", this.text);
-          formData.append("userId", storageInfo.userId);
-        } else {
-          formData.append("title", this.title);
-          formData.append("text", this.text);
-          formData.append("userId", storageInfo.userId);
-        }
-      axios.post('http://localhost:3000/api/post', formData, {
-        headers: {
-          "Content-Type": "multipart/formData",
-          Authorization: `Bearer ${storageInfo.token}`
-        }
-      })
-      .then((res) => {
-        console.log(formData);
-        this.$router.push('/');
-        console.log(res);
-        alert("Bravo ! Votre post est bien crée");
-      })
-      .catch(e => {
-        console.log(e + "impossible d'éditer le post, une erreur est survenue");
-        console.log(formData);
-      });
-    },
-    },
+  name: "sendPost",
+  data() {
+    return {
+      title: "",
+      text: "",
+      // imageUrl: "",
+    };
+  },
 
-    
+  methods: {
+    handleFileUpload() {
+      this.image = this.$refs.image.files[0];
+    },
+    createPost() {
+      const storageInfo = JSON.parse(
+        localStorage.getItem("lucasp7groupomania")
+      );
+
+      axios
+        .post(
+          "http://localhost:3000/api/post",
+          {
+            title: this.title,
+            text: this.text,
+            userId: storageInfo.userId,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${storageInfo.token}`,
+            },
+          }
+        )
+        .then(() => {
+          this.$router.push("/home");
+          alert("Bravo ! Votre post est bien crée");
+        })
+        .catch((e) => {
+          console.log(
+            e + "impossible d'éditer le post, une erreur est survenue"
+          );
+        });
+    },
+  },
 };
 </script>
 
@@ -120,13 +115,13 @@ export default {
   cursor: pointer;
 }
 
-.arrow_post:hover{
+.arrow_post:hover {
   color: black;
   background-color: white;
   mix-blend-mode: screen;
   display: block;
   cursor: pointer;
-  transition: all ease .5s;
+  transition: all ease 0.5s;
 }
 
 /* profil */
@@ -172,13 +167,13 @@ export default {
 
 /* input */
 
-.title_addpost{
+.title_addpost {
   color: white;
   font-size: 25px;
   font-weight: 800;
 }
 
-.addpost_title{
+.addpost_title {
   border-radius: 20px;
   height: 50px;
   width: 300px;
@@ -188,7 +183,7 @@ export default {
   margin-bottom: 20px;
 }
 
-.addpost_title::placeholder{
+.addpost_title::placeholder {
   color: white;
 }
 
@@ -201,7 +196,7 @@ export default {
   background-color: transparent;
 }
 
-.addpost_input::placeholder{
+.addpost_input::placeholder {
   color: white;
 }
 
@@ -226,11 +221,10 @@ export default {
   font-size: 17px;
 }
 
-.post_button:hover{
+.post_button:hover {
   background-color: white;
   color: black;
   mix-blend-mode: screen;
-  transition: all .5s;
-
+  transition: all 0.5s;
 }
 </style>

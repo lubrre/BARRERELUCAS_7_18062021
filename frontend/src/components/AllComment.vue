@@ -1,8 +1,26 @@
 <template>
 <div class="comments">
   <div class="comment" v-for="comment in comments" :key="comment.id">
-    <p class="comment_content">{{ comment.content }}</p>
-    <button @click="signalComment(comment.id)" class="signal_button">signaler</button>
+    <p class="comment_username">{{ comment.user.username + " " +"a posté :"}}</p>
+    <p class="comment_content">{{comment.content}}</p>
+
+    <p class="comment_date">{{"posté le : " + comment.createdAt}}</p>
+
+    <!-- signal button -->
+    <button 
+    @click="signalComment(comment.id)" 
+    class="signal_button"
+    v-if="!storageInfo.isAdmin && storageInfo.userId != comment.userId">
+    signaler
+    </button>
+    <!-- delete button (if admin) -->
+    <button 
+    @click="deleteComment(comment.id)"
+    class="signal_button"
+    v-if="storageInfo.isAdmin || storageInfo.userId == comment.userId">
+    supprimer
+    </button>
+    
   </div>
 </div>
 </template>
@@ -16,37 +34,48 @@ export default {
     return {
       comments: [],
       content: "",
+      storageInfo: {}
     };
   },
-  props:[
-        "postId"
-    ],
+  props:["postId"],
   mounted() {
-    console.log("allcomment", this.postId)
-        const storageInfo = JSON.parse(localStorage.getItem("lucasp7groupomania"));
+        this.storageInfo = JSON.parse(localStorage.getItem("lucasp7groupomania"));
+
     axios
-      .get(`http://localhost:3000/api/comment/${this.postId}`, {
+      .get(`http://localhost:3000/api/comment/getOne/${this.postId}`, {
         headers: {
-          Authorization: `Bearer ${storageInfo.token}`,
+          Authorization: `Bearer ${this.storageInfo.token}`,
         },
       })
       .then((comments) => {
         console.log("consolelog allcomment", comments);
-        this.comments = comments.data;
+        this.comments = comments.data.map((comment)=>{
+          comment.createdAt = comment.createdAt.split("-").reverse().join("/")
+          return comment
+        });
         this.$router.push("/OnePost");
       });
   },
   methods: {
       signalComment(postId){
         console.log(postId)
-        const storageInfo = JSON.parse(localStorage.getItem("lucasp7groupomania"));
         axios.get(`http://localhost:3000/api/comment/signal/${postId}`,{
             headers:{
-                authorization: `Bearer ${storageInfo.token}`,
+                authorization: `Bearer ${this.storageInfo.token}`
             },
         })
         .then((response)=>{
             console.log(response);
+        })
+      },
+      deleteComment(postId){
+        axios.delete(`http://localhost:3000/api/comment/delete/${postId}`, {
+          headers:{
+                authorization: `Bearer ${this.storageInfo.token}`
+            },
+        })
+        .then((response)=>{
+          console.log(response);
         })
       }
   },
@@ -59,20 +88,39 @@ export default {
   flex-direction: column;
   align-items: center;
   width: auto;
+  border: 1px solid white;
+  border-radius: 20px;
+  width: auto;
 }
 .comment{
   color: white;
   position: relative;
-  border: 1px solid white;
-  border-radius: 20px;
-  width: 400px;
+  width: 100%;
   margin-bottom: 20px;
   padding-top: 10px;
   padding-bottom: 10px;
+  border-bottom: .5px white solid;
+}
+
+.comment_username{
+  font-size: 13px;
+}
+
+.comment_content{
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.comment_date{
+  font-size: 10px;
+  position: absolute;
+  bottom: 0;
+  right: 10px;
 }
 
 .signal_button{
   background-color: transparent;
+  font-size: 10px;
   border: 2px solid white;
   border-radius: 20px;
   color: white;
@@ -92,6 +140,10 @@ export default {
 
 .signal_text{
   font-size: 15px;
+}
+
+@media screen and (max-width: 425px){
+
 }
 
 </style>

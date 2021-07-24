@@ -1,10 +1,12 @@
 <template>
-  <i class="fas fa-arrow-left arrow_post" onclick="window.location.href='/';"></i>
-  <div class="body">  
+  <router-link to="/home" class="nav_text">
+    <i class="fas fa-arrow-left arrow_post"></i>
+  </router-link>
+  <div class="body">
     <div class="profil_cart">
       <a class="login_title">Profil</a>
 
-      <a class="profil_name">{{username}}</a>
+      <a class="profil_name">{{ username }}</a>
 
       <div class="button">
         <button class="forum_button" onclick="window.location.href='/';">
@@ -44,7 +46,7 @@ export default {
 
   data() {
     return {
-        username: "",
+      username: "",
     };
   },
   // Définissez les méthodes de l'objet
@@ -56,15 +58,17 @@ export default {
       );
       //
       if (confirm_delete) {
-        const userData = JSON.parse(localStorage.getItem('lucasp7groupomania'))
-        axios.delete(`http://localhost:3000/api/auth/${userData.userId}`, {
-          headers: {
-            Authorization: userData.token,
-          },
-        }).then(()=>{
-            localStorage.removeItem('lucasp7groupomania')
-            this.$router.push("/login")
-        })
+        const userData = JSON.parse(localStorage.getItem("lucasp7groupomania"));
+        axios
+          .delete(`http://localhost:3000/api/auth/${userData.userId}`, {
+            headers: {
+              Authorization: userData.token,
+            },
+          })
+          .then(() => {
+            localStorage.removeItem("lucasp7groupomania");
+            this.$router.push("/login");
+          });
       }
     },
   },
@@ -89,22 +93,21 @@ export default {
   cursor: pointer;
 }
 
-.arrow_post:hover{
+.arrow_post:hover {
   color: black;
   background-color: white;
   mix-blend-mode: screen;
   display: block;
   cursor: pointer;
-  transition: all ease .5s;
+  transition: all ease 0.5s;
 }
-
 
 .body {
   display: flex;
   justify-content: center;
 }
 
-.login_title{
+.login_title {
   color: white;
   font-weight: 800;
   font-size: 25px;
@@ -166,14 +169,13 @@ export default {
   border: 2px solid white;
   color: white;
   cursor: pointer;
-} 
-.forum_button:hover{
+}
+.forum_button:hover {
   background-color: white;
-  transition: all ease .5s;
+  transition: all ease 0.5s;
   mix-blend-mode: screen;
   color: black;
 }
-
 
 /* button post */
 
@@ -194,9 +196,9 @@ export default {
   cursor: pointer;
 }
 
-.post_button:hover{
+.post_button:hover {
   background-color: white;
-  transition: all ease .5s;
+  transition: all ease 0.5s;
   mix-blend-mode: screen;
   color: black;
 }
@@ -220,9 +222,9 @@ export default {
   cursor: pointer;
 }
 
-.disconnection_button:hover{
+.disconnection_button:hover {
   background-color: white;
-  transition: all ease .5s;
+  transition: all ease 0.5s;
   mix-blend-mode: screen;
   color: black;
 }
@@ -245,9 +247,9 @@ export default {
   cursor: pointer;
 }
 
-.delete_button:hover{
+.delete_button:hover {
   background-color: #9e0000;
-  transition: all ease .5s;
+  transition: all ease 0.5s;
   border: 2px solid #9e0000;
 }
 </style>

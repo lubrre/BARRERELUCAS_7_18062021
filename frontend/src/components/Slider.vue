@@ -3,6 +3,7 @@
     <section class="posts">
         <li class="section_post" v-for="post in posts" :key="post.id">
           <div class="card_post">
+            <h2 class="card_username">{{ post.user.username + " " +"a posté :"}}</h2>
             <h2 class="card_title">{{ post.title }}</h2>
             <div class="card_content">
               <p>{{ post.text }}</p>
@@ -28,6 +29,7 @@ export default {
   },
   mounted() {
     const storageInfo = JSON.parse(localStorage.getItem("lucasp7groupomania"));
+    if(!storageInfo) return;
     axios
       .get("http://localhost:3000/api/post/findAll", {
         headers: {
@@ -35,9 +37,7 @@ export default {
         },
       })
       .then((posts) => {
-        console.log(posts);
         this.posts = posts.data;
-        this.$router.push("/");
       });
   },
   methods: {},
@@ -63,7 +63,11 @@ a{
   padding-bottom: 20px;
 }
 
-
+.card_username{
+  font-size: 17px;
+  padding-top: 10px;
+  font-weight: 100;
+}
 
 .card_post{
   margin-left: 20px;
@@ -71,7 +75,7 @@ a{
   border: 2px solid white;
   border-radius: 20px;
   margin-bottom: 20px;
-  height: 150px;
+  height: 200px;
 }
 
 .comments_button {

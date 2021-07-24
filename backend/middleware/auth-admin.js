@@ -2,12 +2,12 @@ const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
     try {
-        console.log("6@@@@@@@@  auth/ReqHeaders  @@@@@@@", req.headers);
+        // console.log("7@@@@@@@@  auth/ReqHeaders  @@@@@@@", req.headers);
         const token = req.headers.authorization.split(' ')[1];
         // console.log("0022",token)
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-        const userId = decodedToken.userId;
-        if (req.body.userId && req.body.userId !== userId) {
+        const isAdmin = decodedToken.isAdmin;
+        if (!isAdmin) {
             throw 'User Id non valable';
         } else {
             next();

@@ -1,5 +1,15 @@
 <template>
-  <i class="fas fa-arrow-left arrow_post" onclick="window.location.href='/';"></i>
+<Modal 
+  v-if="modalMessage" 
+  :modalMessage="modalMessage" 
+   v-on:close-me="closeModal"
+  />
+  <router-link to="/" class="nav_text">
+    <i class="fas fa-arrow-left arrow_post"></i>
+  </router-link>
+  
+  
+
   <div class="body">
     <div @submit.prevent="signup" class="login_cart">
       <a class="login_title">Inscrivez-vous</a>
@@ -62,16 +72,22 @@
         <button class="login_button" v-on:click="signup">S'inscrire</button>
       </div>
 
-      <router-link to="/login" class="link_signup">Vous avez un compte</router-link>
+      <router-link to="/login" class="link_signup"
+        >Vous avez un compte</router-link
+      >
     </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import Modal from "../components/Modal.vue";
 
 export default {
   name: "Signup",
+  components: {
+    Modal
+  },
   data() {
     return {
       email: "",
@@ -79,6 +95,7 @@ export default {
       first_name: "",
       last_name: "",
       username: "",
+      modalMessage: "",
     };
   },
   methods: {
@@ -91,19 +108,21 @@ export default {
           last_name: this.last_name,
           username: this.username,
         })
-        .then(()=>{
-          this.$router.push("/login")
+        .then(() => {
+          this.$router.push("/");
         })
-        .catch(function (error) {
-          console.log(error);
+        .catch(error => {
+          this.modalMessage = error.response.data.message;
         });
     },
+    closeModal() {
+      this.modalMessage = "";
+    }
   },
 };
 </script>
 
 <style scoped>
-
 /* style */
 
 .arrow_post {
@@ -119,13 +138,13 @@ export default {
   cursor: pointer;
 }
 
-.arrow_post:hover{
+.arrow_post:hover {
   color: black;
   background-color: white;
   mix-blend-mode: screen;
   display: block;
   cursor: pointer;
-  transition: all ease .5s;
+  transition: all ease 0.5s;
 }
 
 .body {
@@ -185,7 +204,7 @@ export default {
   margin: auto;
 }
 
-.input::placeholder{
+.input::placeholder {
   color: white;
 }
 
@@ -209,12 +228,12 @@ export default {
   border: 2px solid white;
 }
 
-.login_button:hover{
+.login_button:hover {
   color: black;
   background-color: white;
   mix-blend-mode: screen;
   cursor: pointer;
-  transition: all ease .5s;
+  transition: all ease 0.5s;
 }
 
 /* sign up */

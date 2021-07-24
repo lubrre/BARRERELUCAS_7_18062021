@@ -1,66 +1,102 @@
 <template>
-<i class="fas fa-arrow-left arrow_post" onclick="window.location.href='/';"></i>
-  <section class="carousel">
-        <div class="card" v-if="post && post.id">
-          <h2 class="card-title">{{post.title}}</h2>
-          <div class="card-content">
-            <p class="card_text">{{post.text}}</p>
-            <button @click="signalPost(post.id)" class="signal_button">signaler</button>
-            <AllComment :postId="post.id"/>
-          </div>
-          
-          <Comment :postId="post.id"/>
-        </div>
+  <router-link to="/home" class="nav_text">
+    <i class="fas fa-arrow-left arrow_post"></i>
+  </router-link>
+  <section class="post">
+    <div class="post_ctnr" v-if="post && post.id">
+      <div class="post_content">
+        <h2 class="post_username">
+          {{ post.user.username + " " + "a posté :" }}
+        </h2>
+        <h2 class="post_title">{{ post.title }}</h2>
+        <p class="post_text">{{ post.text }}</p>
+        <button
+          v-if="!storageInfo.isAdmin && storageInfo.userId != post.userId"
+          @click="signalPost(post.id)"
+          class="signal_button"
+        >
+          Signaler
+        </button>
+        <button
+          v-if="storageInfo.isAdmin || storageInfo.userId == post.userId"
+          @click="deletePost(post.id)"
+          class="signal_button"
+        >
+          Supprimer
+        </button>
+        <AllComment :postId="post.id" />
+        <p class="post_date">{{ "posté le : " + post.createdAt }}</p>
+      </div>
+    </div>
   </section>
+  <Comment :postId="post.id" />
+  <Footer />
 </template>
 
 <script>
 import axios from "axios";
 
-import Comment from '@/components/Comment.vue'
-import AllComment from '@/components/AllComment.vue'
+import Comment from "@/components/Comment.vue";
+import AllComment from "@/components/AllComment.vue";
+import Footer from "@/components/Footer.vue";
 
 export default {
-    name:"OnePost",
-    components:{
-        Comment, AllComment
-    },
-    data(){
-        return{
-            post:{},
-        };
-    },
-    props:[
-        "postId"
-    ],
-    mounted(){
-        console.log("postid consolelog", this.postId)
-        const storageInfo = JSON.parse(localStorage.getItem("lucasp7groupomania"));
-        axios.get(`http://localhost:3000/api/post/findOne/${this.postId}`,{
-            headers:{
-                authorization: `Bearer ${storageInfo.token}`,
-            },
+  name: "OnePost",
+  components: {
+    Comment,
+    AllComment, Footer
+  },
+  data() {
+    return {
+      post: {},
+      storageInfo: {},
+    };
+  },
+  props: ["postId"],
+  mounted() {
+    this.storageInfo = JSON.parse(localStorage.getItem("lucasp7groupomania"));
+
+    axios
+      .get(`http://localhost:3000/api/post/findOne/${this.postId}`, {
+        headers: {
+          authorization: `Bearer ${this.storageInfo.token}`,
+        },
+      })
+      .then((post) => {
+        console.log(this.postId);
+        console.log("post consolelog", post);
+        this.post = post.data;
+        this.post.createdAt = this.post.createdAt
+          .split("-")
+          .reverse()
+          .join("/");
+      });
+  },
+  methods: {
+    signalPost(postId) {
+      axios
+        .get(`http://localhost:3000/api/post/signal/${postId}`, {
+          headers: {
+            authorization: `Bearer ${this.storageInfo.token}`,
+          },
         })
-        .then((post)=>{
-            console.log(this.postId)
-            console.log("post consolelog", post);
-            this.post = post.data;
-        })
+        .then((response) => {
+          console.log(response);
+        });
     },
-    methods:{
-      signalPost(postId){
-        console.log(postId)
-        const storageInfo = JSON.parse(localStorage.getItem("lucasp7groupomania"));
-        axios.get(`http://localhost:3000/api/post/signal/${postId}`,{
-            headers:{
-                authorization: `Bearer ${storageInfo.token}`,
-            },
+    deletePost(postId) {
+      axios
+        .delete(`http://localhost:3000/api/post/deleteSignaledPost/${postId}`, {
+          headers: {
+            authorization: `Bearer ${this.storageInfo.token}`,
+          },
         })
-        .then((response)=>{
-            console.log(response);
-        })
-      }
+        .then((response) => {
+          console.log(response);
+          this.$router.push("/home");
+        });
     },
+  },
 };
 </script>
 
@@ -78,235 +114,65 @@ export default {
   cursor: pointer;
 }
 
-.arrow_post:hover{
+.arrow_post:hover {
   color: black;
   background-color: white;
   mix-blend-mode: screen;
   display: block;
   cursor: pointer;
-  transition: all ease .5s;
+  transition: all ease 0.5s;
 }
 
-* {
-  box-sizing: border-box;
-}
-
-body,
-button,
-input,
-select,
-optgroup,
-textarea {
-  color: white;
-  font-size: 1rem;
-  line-height: 1.6;
-  background-color: transparent;
+.post {
   border: 2px solid white;
-  border-radius: 30px;
+  border-radius: 20px;
 }
 
-h1 {
-  font-size: 2rem;
-  margin: 2rem auto 1rem;
-  line-height: 1;
-}
-
-h2 {
-  font-size: 1.5rem;
-  margin-top: 0;
+.post_username {
   color: white;
+  font-size: 17px;
+  font-weight: 200;
 }
 
-a {
-  color: inherit;
-  transition: 0.25s all ease-in-out;
-}
-
-
-a.button {
-  align-items: center;
-  background-color: transparent;
-  border: 2px solid white;
-  border-radius: 4px;
+.post_title {
   color: white;
-  cursor: pointer;
-  display: inline-flex;
-  padding: 0.25rem 0.75rem;
-  text-decoration: none;
-  transition: all 0.25s ease-in-out;
+  font-size: 23px;
+  font-weight: 800;
 }
 
-.signal_button{
+.post_content {
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+  position: relative;
+  padding-bottom: 50px;
+  padding-top: 20px;
+}
+
+.post_date {
+  position: absolute;
+  bottom: 0;
+  right: 20px;
+  font-size: 10px;
+}
+
+.signal_button {
   background-color: transparent;
   border: 2px solid white;
   position: absolute;
-  top: 10px;
-  right: 10px;
+  border-radius: 20px;
+  color: white;
+  top: 6px;
+  right: 20px;
   font-size: 12px;
 }
 
-.signal_button:hover{
+.signal_button:hover {
   background-color: white;
   border: none;
   color: black;
   mix-blend-mode: screen;
-  transition: all ease .5s;
+  transition: all ease 0.5s;
   cursor: pointer;
-}
-
-
-
-ul {
-  margin: 0 0 1.5rem;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-}
-
-svg {
-  fill: currentColor;
-  width: 1.5rem;
-  height: 1.5rem;
-}
-
-img {
-  height: auto;
-  margin-bottom: 0.5rem;
-  max-width: calc(100% + 2rem);
-  position: relative;
-  left: -1rem;
-  right: -1rem;
-}
-
-p {
-  margin: 0 0 0.5rem;
-  font-size: 20px;
-  color: white;
-}
-
-main {
-  padding: 1rem 2rem;
-  margin: auto;
-}
-
-header {
-  padding: 1rem 2rem;
-  text-align: center;
-}
-
-.card {
-  border: 2px solid white;
-  border-radius: 8px;
-  padding: 1rem;
-  position: relative;
-  width: 800px;
-}
-
-.card_title{
-  border-radius: 20px;
-  height: 50px;
-  width: 300px;
-  color: white;
-  border: 1px solid white;
-  background-color: transparent;
-  margin-bottom: 20px;
-}
-
-.card_text{
-  color: white;
-  font-weight: 600;
-}
-
-.card_input {
-  border-radius: 20px;
-  height: 100px;
-  width: 300px;
-  color: white;
-  border: 1px solid white;
-  background-color: transparent;
-}
-/********************************
-* Carousel styles
-*********************************/
-.carousel{
-  display: flex;
-  justify-content: center;
-}
-.carousel-items {
-  display: flex;
-  overflow-x: scroll;
-  padding: 1rem 0;
-  scroll-snap-type: x mandatory;
-}
-
-.carousel-item {
-  flex: 1 0 250px;
-  margin-left: 1rem;
-  scroll-snap-align: start;
-}
-
-::-webkit-scrollbar-track {
-  background-color: #f5f5f5;
-}
-
-::-webkit-scrollbar {
-  height: 6px;
-  background-color: #f5f5f5;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: #3d4852;
-  border-radius: 3px;
-}
-
-/********************************
-* Breakpoints
-*********************************/
-@media screen and (min-width: 576px) {
-  .carousel-item {
-    flex-basis: 300px;
-  }
-}
-
-@media screen and (min-width: 992px) {
-  body,
-  button,
-  input,
-  select,
-  optgroup,
-  textarea {
-    font-size: 1.125rem;
-  }
-
-  h1 {
-    font-size: 2.75rem;
-  }
-
-  .carousel-item {
-    flex-basis: 325px;
-  }
-}
-
-@media screen and (min-width: 1280px) {
-  h1 {
-    font-size: 4rem;
-  }
-
-  .carousel-item {
-    flex-basis: 450px;
-  }
-}
-
-@media screen and (min-width: 1600px) {
-  body,
-  button,
-  input,
-  select,
-  optgroup,
-  textarea {
-    font-size: 1.25rem;
-  }
 }
 </style>

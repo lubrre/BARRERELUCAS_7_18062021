@@ -1,7 +1,7 @@
 // database mysql
 const db = require("./models");
 db.sequelize.sync().then(() => {
-  console.log("Drop and re-sync db.");
+    console.log("Drop and re-sync db.");
 });
 
 // import framework express
@@ -21,7 +21,6 @@ const helmet = require('helmet');
 const userRoutes = require('./routes/user');
 const postRoutes = require('./routes/post');
 const commentRoutes = require('./routes/comment');
-const reportRoutes = require('./routes/report');
 
 
 // création d'un application express
@@ -33,7 +32,7 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     next();
-  });
+});
 
 // middleware qui permet de transformer le corps de la requête en un objet JSON utilisable
 app.use(bodyParser.json());
