@@ -190,9 +190,9 @@ export default {
 }
 
 .login_button:hover {
-  color: black;
+  color: white;
+  border: 2px solid black;
   background-color: black;
-  mix-blend-mode: screen;
   cursor: pointer;
   transition: all ease 0.5s;
 }
