@@ -23,3 +23,5 @@ Se placer dans le dossier frontend:
 Taper la ligne de commande: npm run serve
 
 Vous accéderez à l'application groupomania ici : http://localhost:8080/
+
+Pour les log du compte administrateur vous les trouverez dans le fichier contenant le lien GitHub uploader sur OpenClassRoom
