@@ -2,11 +2,15 @@ Auteur Lucas Barrère
 
 Projet 7 - Création d'un réseau social d'entreprise
 
+
 Démarrage
 
-Cloner le repo sur votre ordinateur Lancer le terminal de commande, se placer dans le dossier Backend:
 
-Taper la ligne de commande : npm install (pour installer tous les packages nécessaire à ce projet, dont sequelize + nodemon)
+Cloner le repo sur votre ordinateur
+
+Lancer le terminal de commande, se placer dans le dossier Backend:
+
+Taper la ligne de commande : npm install (pour installer tous les packages nécessaires à ce projet, dont sequelize + nodemon)
 
 (Vous devez avoir PHPMYADMIN installer sur votre ordinateur, pour cela veuillez télécharger MAMP, une fois MAMP télécharger et installer, appuyer sur l'icône start, cela va ouvrir une fenetre sur votre navigateur, puis dans l'onglet Tools vous pourrez accéder à PHPMYADMIN)
 
