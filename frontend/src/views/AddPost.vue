@@ -108,17 +108,17 @@ export default {
   left: 20px;
   font-size: 20px;
   width: 40px;
-  color: white;
-  border: 2px solid white;
+  color: black;
+  border: 2px solid black;
   border-radius: 30px;
   padding: 5px;
   cursor: pointer;
 }
 
 .arrow_post:hover {
-  color: black;
-  background-color: white;
-  mix-blend-mode: screen;
+  color: white;
+  border: 2px solid black;
+  background-color: black;
   display: block;
   cursor: pointer;
   transition: all ease 0.5s;
@@ -131,7 +131,7 @@ export default {
   flex-direction: column;
   align-items: center;
   background-color: transparent;
-  border: 2px solid white;
+  border: 2px solid black;
   border-radius: 20px;
   padding-top: 20px;
   padding-bottom: 40px;
@@ -144,31 +144,11 @@ export default {
     width: 350px;
   }
 }
-/* profil img */
-
-.profil_img {
-  background-image: url(../assets/profil.jpeg);
-  background-size: cover;
-  background-position: bottom;
-  background-repeat: no-repeat;
-  border: 1px solid black;
-  border-radius: 100px;
-  width: 100px;
-  height: 100px;
-}
-
-/* username */
-.profil_name {
-  font-size: 25px;
-  font-weight: 900;
-  padding-top: 20px;
-  margin-bottom: 15px;
-}
 
 /* input */
 
 .title_addpost {
-  color: white;
+  color: black;
   font-size: 25px;
   font-weight: 800;
 }
@@ -177,27 +157,27 @@ export default {
   border-radius: 20px;
   height: 50px;
   width: 300px;
-  color: white;
-  border: 1px solid white;
+  color: black;
+  border: 1px solid black;
   background-color: transparent;
   margin-bottom: 20px;
 }
 
 .addpost_title::placeholder {
-  color: white;
+  color: black;
 }
 
 .addpost_input {
   border-radius: 20px;
   height: 100px;
   width: 300px;
-  color: white;
-  border: 1px solid white;
+  color: black;
+  border: 1px solid black;
   background-color: transparent;
 }
 
 .addpost_input::placeholder {
-  color: white;
+  color: black;
 }
 
 /* button post */
@@ -216,15 +196,15 @@ export default {
   padding-top: 10px;
   padding-bottom: 10px;
   border-radius: 25px;
-  border: 2px white solid;
-  color: white;
+  border: 2px black solid;
+  color: black;
   font-size: 17px;
 }
 
 .post_button:hover {
-  background-color: white;
-  color: black;
-  mix-blend-mode: screen;
+  color: white;
+  border: 2px solid black;
+  background-color: black;
   transition: all 0.5s;
 }
 </style>

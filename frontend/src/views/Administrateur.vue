@@ -194,17 +194,17 @@ export default {
   left: 20px;
   font-size: 20px;
   width: 40px;
-  color: white;
-  border: 2px solid white;
+  color: black;
+  border: 2px solid black;
   border-radius: 30px;
   padding: 5px;
   cursor: pointer;
 }
 
 .arrow_post:hover {
-  color: black;
-  background-color: white;
-  mix-blend-mode: screen;
+    color: white;
+  border: 2px solid black;
+  background-color: black;
   display: block;
   cursor: pointer;
   transition: all ease 0.5s;
@@ -220,13 +220,13 @@ li {
 }
 
 .title_signal {
-  color: white;
+  color: black;
   font-size: 25px;
   font-weight: 800;
 }
 
 .signal {
-  border: 2px solid white;
+  border: 2px solid black;
   border-radius: 20px;
   padding-top: 10px;
   padding-bottom: 20px;
@@ -234,11 +234,11 @@ li {
 }
 
 .card_title {
-  color: white;
+  color: black;
 }
 
 .card_text {
-  color: white;
+  color: black;
   font-size: 20px;
 }
 
@@ -257,14 +257,14 @@ li {
   border-radius: 35px;
   border: none;
   background-color: transparent;
-  color: white;
-  border: 2px solid white;
+  color: black;
+  border: 2px solid black;
 }
 
 .cancel_button:hover {
-  color: black;
-  background-color: white;
-  mix-blend-mode: screen;
+  color: white;
+  border: 2px solid black;
+  background-color: black;
   cursor: pointer;
   transition: all ease 0.5s;
 }
@@ -279,8 +279,8 @@ li {
   border-radius: 35px;
   border: none;
   background-color: transparent;
-  color: white;
-  border: 2px solid white;
+  color: black;
+  border: 2px solid black;
 }
 
 .delete_button:hover {

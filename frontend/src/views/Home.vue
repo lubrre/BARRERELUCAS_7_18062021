@@ -31,6 +31,7 @@ export default {
 
 * {
   font-family: "Montserrat", sans-serif;
+  color: black;
 }
 
 body {

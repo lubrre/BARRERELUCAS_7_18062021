@@ -15,7 +15,7 @@
     </nav>
 
     <button v-if="isLoggedIn" class="cta log-btn" @click="logout"
-          >Se déconnecter</button>
+          >Déconnexion</button>
     <router-link v-else to="/" class="cta log-btn"
           >S'identifier</router-link>
 
@@ -57,7 +57,7 @@ export default {
 }
 
 .logo {
-  background-image: url(../assets/icon-left-font-monochrome-white.png);
+  background-image: url(../assets/icon-left-font-monochrome-black.png);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -73,7 +73,7 @@ button {
   font-size: 16px;
   text-decoration: none;
   cursor: pointer;
-  color: white;
+  color: black;
 }
 
 .header {
@@ -99,27 +99,19 @@ button {
   color: black;
 }
 
-.login_button {
-  border: 2px white solid;
+.log-btn {
+  border: 2px black solid;
   border-radius: 50px;
   padding: 10px;
   background-color: transparent;
   font-weight: 800;
 }
 
-.login_button:hover {
-  color: black;
+.log-btn:hover {
+  color: white;
+  border: 2px solid black;
+  background-color: black;
   transition: all 0.3s ease 0s;
-  background-color: white;
-  mix-blend-mode: screen;
-}
-
-.log-btn {
-  background-color: transparent;
-  border: 2px solid;
-  border-radius: 17px;
-  height: 34px;
-  width: 160px;
 }
 
 @media screen and (max-width: 1024px) {
@@ -131,7 +123,7 @@ button {
 
 @media screen and (max-width: 768px) {
   .logo {
-    background-image: url(../assets/iconwhite.png);
+    background-image: url(../assets/iconblack.png);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

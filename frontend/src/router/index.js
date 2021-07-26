@@ -2,6 +2,7 @@ import { createWebHistory, createRouter } from "vue-router";
 import Login from "@/views/Login.vue";
 import Signup from "@/views/Signup.vue";
 import Profile from "@/views/Profile.vue";
+import ModifyProfile from "@/views/ModifyProfile.vue";
 import OnePost from "@/views/OnePost.vue";
 import AddPost from "@/views/AddPost.vue";
 import Administrateur from "@/views/Administrateur.vue";
@@ -26,6 +27,11 @@ const routes = [{
         path: "/profile",
         name: "Profile",
         component: Profile,
+    },
+    {
+        path: "/modifyProfile",
+        name: "ModifyProfile",
+        component: ModifyProfile,
     },
     {
         path: '/onepost',

@@ -54,9 +54,9 @@ a{
 }
 
 .posts{
-  color: white;
+  color: black;
   border-radius: 20px;
-  border: 2px white solid;
+  border: 2px black solid;
   margin-left: 20px;
   margin-right: 20px;
   padding-top: 20px;
@@ -72,7 +72,7 @@ a{
 .card_post{
   margin-left: 20px;
   margin-right: 20px;
-  border: 2px solid white;
+  border: 2px solid black;
   border-radius: 20px;
   margin-bottom: 20px;
   padding-bottom: 20px;
@@ -89,15 +89,14 @@ a{
   border-radius: 35px;
   border: none;
   background-color: transparent;
-  color: white;
-  border: 2px solid white;
+  color: black;
+  border: 2px solid black;
 }
 
 .comments_button:hover{
-  color: black;
-  background-color: white;
-  mix-blend-mode: screen;
-  cursor: pointer;
+  color: white;
+  border: 2px solid black;
+  background-color: black;
   transition: all ease .5s;
 }
 

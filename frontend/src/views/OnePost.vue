@@ -107,41 +107,41 @@ export default {
   left: 20px;
   font-size: 20px;
   width: 40px;
-  color: white;
-  border: 2px solid white;
+  color: black;
+  border: 2px solid black;
   border-radius: 30px;
   padding: 5px;
   cursor: pointer;
 }
 
 .arrow_post:hover {
-  color: black;
-  background-color: white;
-  mix-blend-mode: screen;
+  color: white;
+  border: 2px solid black;
+  background-color: black;
   display: block;
   cursor: pointer;
   transition: all ease 0.5s;
 }
 
 .post {
-  border: 2px solid white;
+  border: 2px solid black;
   border-radius: 20px;
 }
 
 .post_username {
-  color: white;
+  color: black;
   font-size: 17px;
   font-weight: 200;
 }
 
 .post_title {
-  color: white;
+  color: black;
   font-size: 23px;
   font-weight: 800;
 }
 
 .post_content {
-  color: white;
+  color: black;
   font-size: 20px;
   font-weight: 500;
   position: relative;
@@ -158,20 +158,19 @@ export default {
 
 .signal_button {
   background-color: transparent;
-  border: 2px solid white;
+  border: 2px solid black;
   position: absolute;
   border-radius: 20px;
-  color: white;
+  color: black;
   top: 6px;
   right: 20px;
   font-size: 12px;
 }
 
 .signal_button:hover {
-  background-color: white;
-  border: none;
-  color: black;
-  mix-blend-mode: screen;
+  color: white;
+  border: 2px solid black;
+  background-color: black;
   transition: all ease 0.5s;
   cursor: pointer;
 }

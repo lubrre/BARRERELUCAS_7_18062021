@@ -63,13 +63,13 @@ export default {
 
 <style scoped>
 .add_comment {
-  color: white;
+  color: black;
   font-size: 20px;
   font-weight: 800;
 }
 
 .comment_content {
-  border: 2px white solid;
+  border: 2px black solid;
   background-color: transparent;
   border-radius: 20px;
   width: 100%;
@@ -78,24 +78,24 @@ export default {
 }
 
 .comment_content::placeholder {
-  color: white;
+  color: black;
 }
 
 .post_button {
   background-color: transparent;
-  border: 2px white solid;
+  border: 2px black solid;
   border-radius: 35px;
-  color: white;
+  color: black;
   width: 100%;
   height: 25px;
 }
 
 .post_button:hover {
-  background-color: white;
-  border: none;
-  color: black;
-  mix-blend-mode: screen;
+  color: white;
+  border: 2px solid black;
+  background-color: black;
   transition: all ease 0.5s;
+  
 }
 
 

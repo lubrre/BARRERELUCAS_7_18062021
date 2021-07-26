@@ -88,18 +88,18 @@ export default {
   flex-direction: column;
   align-items: center;
   width: auto;
-  border: 1px solid white;
+  border: 1px solid black;
   border-radius: 20px;
   width: auto;
 }
 .comment{
-  color: white;
+  color: black;
   position: relative;
   width: 100%;
   margin-bottom: 20px;
   padding-top: 10px;
   padding-bottom: 10px;
-  border-bottom: .5px white solid;
+  border-bottom: .5px black solid;
 }
 
 .comment_username{
@@ -121,19 +121,18 @@ export default {
 .signal_button{
   background-color: transparent;
   font-size: 10px;
-  border: 2px solid white;
+  border: 2px solid black;
   border-radius: 20px;
-  color: white;
+  color: black;
   position: absolute;
   top: 10px;
   right: 10px;
 }
 
 .signal_button:hover{
-  background-color: white;
-  border: none;
-  color: black;
-  mix-blend-mode: screen;
+  color: white;
+  border: 2px solid black;
+  background-color: black;
   transition: all ease .5s;
   cursor: pointer;
 }

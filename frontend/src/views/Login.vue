@@ -93,8 +93,8 @@ export default {
   left: 20px;
   font-size: 20px;
   width: 40px;
-  color: white;
-  border: 2px solid white;
+  color: black;
+  border: 2px solid black;
   border-radius: 30px;
   padding: 5px;
   cursor: pointer;
@@ -102,7 +102,7 @@ export default {
 
 .arrow_post:hover {
   color: black;
-  background-color: white;
+  background-color: black;
   mix-blend-mode: screen;
   display: block;
   cursor: pointer;
@@ -117,7 +117,7 @@ export default {
 /*login_cart */
 
 .login_cart {
-  border: 2px solid white;
+  border: 2px solid black;
   border-radius: 20px;
   padding-top: 40px;
   padding-bottom: 40px;
@@ -125,7 +125,7 @@ export default {
 }
 
 .login_title {
-  color: white;
+  color: black;
   font-weight: 900;
   font-size: 25px;
   width: 100%;
@@ -153,20 +153,20 @@ export default {
   font-size: 20px;
   font-weight: 800;
   padding-top: 10px;
-  color: white;
+  color: black;
 }
 
 .input {
   width: 250px;
   height: 20px;
   border-radius: 10px;
-  border: 2px solid white;
+  border: 2px solid black;
   background-color: transparent;
   margin: auto;
 }
 
 .input::placeholder {
-  color: white;
+  color: black;
 }
 
 /* button */
@@ -185,13 +185,13 @@ export default {
   border-radius: 35px;
   border: none;
   background-color: transparent;
-  color: white;
-  border: 2px solid white;
+  color: black;
+  border: 2px solid black;
 }
 
 .login_button:hover {
   color: black;
-  background-color: white;
+  background-color: black;
   mix-blend-mode: screen;
   cursor: pointer;
   transition: all ease 0.5s;
@@ -200,7 +200,7 @@ export default {
 /* sign up */
 
 .link_signup {
-  color: white;
+  color: black;
   text-decoration: none;
 }
 </style>
