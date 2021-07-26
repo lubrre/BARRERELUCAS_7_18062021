@@ -75,7 +75,8 @@ a{
   border: 2px solid white;
   border-radius: 20px;
   margin-bottom: 20px;
-  height: 200px;
+  padding-bottom: 20px;
+  height: 100%;
 }
 
 .comments_button {
